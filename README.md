@@ -1,5 +1,5 @@
 
-# Wholesale Inventory Management System
+# Braeton Gate Wholesale Inventory Management System
 
 A streamlined inventory control system designed for wholesale businesses. It provides efficient product management, stock tracking, condition logging, reporting, and automated slow-moving/overstock detection. The system is built on a clean, scalable relational database to ensure accuracy, traceability, and performance.
 
