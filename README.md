@@ -1,116 +1,64 @@
+# Braeton Gate Wholesale Inventory System
 
-# Braeton Gate Wholesale Inventory Management System
+A comprehensive Inventory Management System built with Python's Tkinter for the GUI and PostgreSQL for data persistence. This application is designed to help manage inventory, track stock levels, handle user management, and generate reports.
 
-A streamlined inventory control system designed for wholesale businesses. It provides efficient product management, stock tracking, condition logging, reporting, and automated slow-moving/overstock detection. The system is built on a clean, scalable relational database to ensure accuracy, traceability, and performance.
+## Features
 
----
+- **Dashboard**: Overview of key metrics like total inventory value, low stock items, and recent activity.
+- **Inventory Management**: Add, update, delete, and view inventory items.
+- **Category Management**: Organize items into categories.
+- **Stock Adjustments**: Record stock increases or decreases (e.g., new shipments, shrinkage).
+- **Damaged/Expired Tracking**: Manage items that are no longer sellable.
+- **User Management**: Manage system users and their roles.
+- **Reports**: Generate reports on inventory status and movements.
+- **Settings**: Configure application settings.
 
-# Key Functional Modules
+## Prerequisites
 
-## 1. Item Management
-- Add, edit, delete, and categorize products.
-- Track price, quantity, unit type, and reorder levels.
-- Search and filter items quickly across categories and attributes.
+- **Python 3.8+**: Ensure you have Python installed.
+- **PostgreSQL**: This application requires a PostgreSQL database.
 
-## 2. Stock Adjustment Log
-- Record deliveries, sales, returns, and manual stock corrections.
-- Each entry includes date, quantity, and reason.
-- Maintains a complete audit trail for accountability and reconciliation.
+## Installation
 
-## 3. Condition Tracking
-- Log damaged, expired, spoiled, or otherwise compromised inventory.
-- Captures quantity affected, cause, and financial impact.
-- Monthly summaries reveal operational issues and prevent repeat losses.
+1.  **Clone the repository:**
+    ```bash
+    git clone <repository-url>
+    cd Comp-2140
+    ```
 
-## 4. Reporting & Insights
-- Generate daily, weekly, or monthly inventory and sales reports.
-- Supports informed restocking, budgeting, and purchasing decisions.
+2.  **Install dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-## 5. Slow-Moving & Overstock Monitoring
-- Flags items that remain unsold for long periods or exceed threshold quantities.
-- Provides suggested actions (discounting, bundling, discontinuation).
-- Improves inventory turnover and reduces storage costs.
+3.  **Database Setup:**
+    - Ensure PostgreSQL is running.
+    - Create a database named `inventory_db`:
+      ```sql
+      CREATE DATABASE inventory_db;
+      ```
+    - **Configuration**: The database connection string is located in `data/db.py`. By default, it is set to:
+      ```python
+      DATABASE_URL = "postgresql://localhost/inventory_db"
+      ```
+      If your PostgreSQL configuration (username, password, host, port) is different, please update this line in `data/db.py`. For example:
+      ```python
+      DATABASE_URL = "postgresql://user:password@localhost:5432/inventory_db"
+      ```
 
----
+## Running the Application
 
-# Database Design Overview
+To start the application, run the `main.py` file from the root directory:
 
-The system uses a relational database to maintain strong data integrity, enforce relationships, and support detailed historical tracking. The design focuses on normalization, auditability, and expandability.
+```bash
+python main.py
+```
 
----
+The application window should appear, defaulting to the Dashboard view.
 
-## Categories
-Stores product classifications.
-- category_id (PK)
-- name
-- description
+## Project Structure
 
-## Items
-Central table for all inventory products.
-- item_id (PK)
-- name
-- category_id (FK → categories)
-- price
-- quantity
-- current_stock
-- unit
-- reorder_level
-- created_at, updated_at
-
-## Users
-Manages authentication and user permissions.
-- user_id (PK)
-- username
-- password_hash
-- role
-
-## Stock Adjustments
-Tracks every item quantity change.
-- adjust_id (PK)
-- item_id (FK → items)
-- user_id (FK → users)
-- adjust_type (add/remove)
-- quantity
-- reason
-- created_at, adjusted_at
-
-## Item Conditions
-Logs issues such as damage or spoilage.
-- condition_id (PK)
-- item_id (FK)
-- condition_type
-- quantity
-- reason, cause
-- cost_impact
-- recorded_at
-
-## Reports
-Stores report metadata and output.
-- report_id (PK)
-- report_type
-- start_date, end_date
-- generated_at
-- user_id (FK)
-- parameters
-- report_data
-
-## Slow-Moving & Overstock
-Monitors inventory health.
-- sm_id (PK)
-- item_id (FK)
-- last_adjust_id (FK)
-- flagged_at
-- last_sold_date
-- stock_quantity
-- threshold_days, threshold_quantity
-- suggested_action
-
-## Config
-System-wide settings.
-- parameter_name
-- parameter_value
-- updated_at
-
----
-
-
+- `main.py`: Entry point of the application.
+- `ui/`: Contains all user interface code (Views, Components, Styles).
+- `data/`: Contains database models, connection logic, and mock data.
+- `assets/`: Contains static assets (images, icons).
